@@ -2,25 +2,31 @@
 
 namespace App\Models;
 
+use App\Enums\Country;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Sushi\Sushi;
 
 class User extends Authenticatable
 {
-    use Sushi;
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'receive_emails' => 'boolean',
+        'receive_updates' => 'boolean',
+        'receive_offers' => 'boolean',
+        'country' => Country::class,
+    ];
 
-    protected $guarded = [];
-
-    protected $rows = [
-        [
-            'id' => 1,
-            'username' => 'void',
-            'bio' => '',
-            'receives_emails' => false,
-            'receives_updates' => '',
-            'receives_offers' => '',
-            'country' => 'United States',
-        ]
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        //
     ];
 
     /**
@@ -33,16 +39,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    use Sushi;
+
+    protected $rows = [
+        [
+            'id' => 1,
+            'username' => 'void',
+            'bio' => 'A little bit about myself...',
+            'receive_emails' => false,
+            'receive_updates' => '',
+            'receive_offers' => '',
+            'country' => 'US',
+        ]
+    ];
 }

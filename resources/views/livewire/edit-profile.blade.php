@@ -2,29 +2,108 @@
     <h1 class="mb-4 text-2xl text-slate-700 font-semibold">Update your profile...</h1>
 
     <form wire:submit="save()" class="min-w-[30rem] flex flex-col gap-6 bg-white rounded-lg shadow p-6">
-        <div class="flex flex-col gap-2">
-            <h3 class="font-medium text-slate-700 text-base">Username</h3>
+        <label class="flex flex-col gap-2">
+            <h3 class="font-medium text-slate-700 text-base">
+                Username
+                <span class="text-red-500 opacity-75" aria-hidden="true">*</span>
+            </h3>
 
             <input
                 wire:model.blur="form.username"
                 @class([
-                    'px-3 py-2  rounded-lg',
+                    'px-3 py-2  rounded-lg disabled:cursor-not-allowed disabled:opacity-75',
                     'border border-slate-300' => $errors->missing('form.username'),
                     'border-2 border-red-500' => $errors->has('form.username'),
                 ])
                 placeholder="Username...">
 
+
             @error('form.username')
             <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror
-        </div>
+        </label>
 
-        <div class="flex flex-col gap-2">
+        <label class="flex flex-col gap-2">
             <h3 class="font-medium text-slate-700 text-base">Bio</h3>
 
-            <textarea wire:model="form.bio" rows="4" class="px-3 py-2 border border-slate-300 rounded-lg"
+            <textarea wire:model="form.bio" rows="4"
+                      class="px-3 py-2 border border-slate-300 rounded-lg disabled:cursor-not-allowed disabled:opacity-75"
                       placeholder="A little bit about yourself..."></textarea>
-        </div>
+        </label>
+
+        <label class="flex flex-col gap-2">
+            <h3 class="font-medium text-slate-700 text-base">
+                Country
+                <span class="text-red-500 opacity-75" aria-hidden="true">*</span>
+            </h3>
+
+            <select
+                wire:model.blur="form.country"
+                @class([
+                    'px-3 py-2  rounded-lg disabled:cursor-not-allowed disabled:opacity-75',
+                    'border border-slate-300' => $errors->missing('form.country'),
+                    'border-2 border-red-500' => $errors->has('form.country'),
+                ])
+            >
+
+                <option value="" selected disabled>Choose your country</option>
+                @foreach(App\Enums\Country::cases() as $country)
+                    <option value="{{ $country->value }}"> {{ $country->label() }}</option>
+                @endforeach
+            </select>
+
+            @error('form.country')
+            <p class="text-sm text-red-500">{{ $message }}</p>
+            @enderror
+        </label>
+
+        <fieldset class="flex flex-col gap-2">
+            <div>
+                <legend class="font-medium text-slate-700 text-base">Receive Emails?</legend>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <label class="flex items-center gap-2">
+                    <input
+                        wire:model.boolean="form.receive_emails"
+                        name="receive_emails"
+                        value="true"
+                        type="radio">Yes
+                </label>
+                <label class="flex items-center gap-2">
+                    <input
+                        wire:model.boolean="form.receive_emails"
+                        name="receive_emails"
+                        value="false"
+                        type="radio">No
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset
+            x-show="$wire.form.receive_emails"
+            class="flex flex-col gap-2">
+            <div>
+                <legend class="font-medium text-slate-700 text-base">What emails do you want to receive?</legend>
+            </div>
+
+            <div class="flex flex-col space-y-2">
+                <label class="flex items-center gap-2">
+                    <input
+                        class="rounded-sm"
+                        wire:model="form.receive_updates"
+                        name="receive_emails"
+                        type="checkbox">General updates
+                </label>
+                <label class="flex items-center gap-2">
+                    <input
+                        class="rounded-sm"
+                        wire:model="form.receive_offers"
+                        name="receive_emails"
+                        type="checkbox">Marketing offers
+                </label>
+            </div>
+        </fieldset>
 
         <div class="flex">
             <button type="submit"
