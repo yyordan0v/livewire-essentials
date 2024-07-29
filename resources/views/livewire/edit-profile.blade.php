@@ -5,7 +5,18 @@
         <div class="flex flex-col gap-2">
             <h3 class="font-medium text-slate-700 text-base">Username</h3>
 
-            <input wire:model="username" class="px-3 py-2 border border-slate-300 rounded-lg" placeholder="Username...">
+            <input
+                wire:model.blur="username"
+                @class([
+                    'px-3 py-2  rounded-lg',
+                    'border border-slate-300' => $errors->missing('username'),
+                    'border-2 border-red-500' => $errors->has('username'),
+                ])
+                placeholder="Username...">
+
+            @error('username')
+            <p class="text-sm text-red-500">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="flex flex-col gap-2">
@@ -20,7 +31,8 @@
                     class="relative w-full bg-blue-500 py-3 px-8 rounded-lg text-white font-medium disabled:cursor-not-allowed disabled:opacity-75">
                 Save
 
-                <div wire:loading.flex class="flex absolute top-0 right-0 bottom-0 flex items-center pr-4">
+                <div wire:loading.flex wire:target="save "
+                     class="flex absolute top-0 right-0 bottom-0 flex items-center pr-4">
                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                          fill="none"
                          viewBox="0 0 24 24">
