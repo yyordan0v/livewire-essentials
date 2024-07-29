@@ -6,15 +6,15 @@
             <h3 class="font-medium text-slate-700 text-base">Username</h3>
 
             <input
-                wire:model.blur="username"
+                wire:model.blur="form.username"
                 @class([
                     'px-3 py-2  rounded-lg',
-                    'border border-slate-300' => $errors->missing('username'),
-                    'border-2 border-red-500' => $errors->has('username'),
+                    'border border-slate-300' => $errors->missing('form.username'),
+                    'border-2 border-red-500' => $errors->has('form.username'),
                 ])
                 placeholder="Username...">
 
-            @error('username')
+            @error('form.username')
             <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror
         </div>
@@ -22,7 +22,7 @@
         <div class="flex flex-col gap-2">
             <h3 class="font-medium text-slate-700 text-base">Bio</h3>
 
-            <textarea wire:model="bio" rows="4" class="px-3 py-2 border border-slate-300 rounded-lg"
+            <textarea wire:model="form.bio" rows="4" class="px-3 py-2 border border-slate-300 rounded-lg"
                       placeholder="A little bit about yourself..."></textarea>
         </div>
 
@@ -31,7 +31,7 @@
                     class="relative w-full bg-blue-500 py-3 px-8 rounded-lg text-white font-medium disabled:cursor-not-allowed disabled:opacity-75">
                 Save
 
-                <div wire:loading.flex wire:target="save "
+                <div wire:loading.flex wire:target="save"
                      class="flex absolute top-0 right-0 bottom-0 flex items-center pr-4">
                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                          fill="none"
