@@ -24,7 +24,5 @@ class ShowPosts extends Component
         //authorize ...
 
         $post->delete();
-
-        sleep(1);
     }
 }
