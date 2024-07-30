@@ -1,6 +1,6 @@
 <div
     x-dialog
-    x-model="open"
+    x-model="dialogOpen"
     style="display: none"
     class="fixed inset-0 overflow-y-auto z-10"
 >
