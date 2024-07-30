@@ -1,6 +1,6 @@
 <tr class="text-left text-slate-900">
     <td class="pl-6 py-4 pr-3 font-medium">{{ $post->title }}</td>
-    <td class="pl-4 py-4 text-left text-slate-500">{{ str($post->content)->limit(50) }}</td>
+    <td class="pl-4 py-4 text-left hidden sm:table-cell text-slate-500">{{ str($post->content)->limit(50) }}</td>
     <td class="pl-4 py-4 text-right pr-6 flex gap-2 justify-end">
 
         <x-menu>
@@ -128,7 +128,5 @@
                 </x-dialog>
             </x-menu.items>
         </x-menu>
-
-
     </td>
 </tr>

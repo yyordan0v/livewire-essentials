@@ -9,7 +9,7 @@
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
 </head>
 <body>
-<main class="flex justify-center items-start py-16 bg-slate-100 min-h-screen text-slate-800">
+<main class="flex justify-center items-start pt-24 bg-slate-200 min-h-screen text-slate-800">
     {{ $slot }}
 </main>
 </body>

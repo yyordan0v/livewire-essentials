@@ -3,17 +3,17 @@
         x-dialog
         x-model="dialogOpen"
         style="display: none"
-        class="fixed inset-0 overflow-y-auto z-10"
+        class="fixed inset-0 overflow-y-auto z-10 text-left"
     >
         <!-- Overlay -->
         <div x-dialog:overlay x-transition.opacity class="fixed inset-0 bg-black/25"></div>
 
         <!-- Panel -->
-        <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div class="relative min-h-screen flex items-end sm:items-center justify-center p-0 sm:p-4">
             <div
                 x-dialog:panel
                 x-transition.in x-transition.out.opacity
-                class="relative max-w-xl w-full bg-white rounded-xl shadow-lg overflow-y-auto"
+                class="relative max-w-xl w-full bg-white rounded-t-xl sm:rounded-b-xl shadow-lg overflow-y-auto"
             >
                 <!-- Close Button -->
                 <div class="absolute top-0 right-0 pt-4 pr-4">
