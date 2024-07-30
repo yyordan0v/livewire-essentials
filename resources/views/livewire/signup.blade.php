@@ -29,14 +29,14 @@
 
             <span>I agree to the</span>
 
-            <x-modal wire:model="showModal">
-                <x-modal.open>
+            <x-dialog wire:model="showModal">
+                <x-dialog.open>
                     <button type="button" class="underline text-blue-500">
                         terms of service.
                     </button>
-                </x-modal.open>
+                </x-dialog.open>
 
-                <x-modal.panel>
+                <x-dialog.panel>
                     <h2 class="text-2xl font-bold text-slate-900">Terms Of Service</h2>
 
                     <div class="mt-5 text-gray-600">
@@ -81,8 +81,8 @@
                         <p class="mt-2">For any questions regarding these Terms, please contact us at
                             dontcontactus@ever.com.</p>
                     </div>
-                </x-modal.panel>
-            </x-modal>
+                </x-dialog.panel>
+            </x-dialog>
         </div>
 
         <button class="w-1/2 text-center rounded-xl bg-blue-500 text-white px-3 py-2 font-medium">Register</button>
