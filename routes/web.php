@@ -7,4 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/store/{store}/orders', Page::class)->name('store.orders');
+Route::get('/store/{store}/orders', Page::class)
+    ->can('view', 'store')
+    ->name('store.orders');
