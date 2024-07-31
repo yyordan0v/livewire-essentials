@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
         Product::create(['name' => 'Toothpaste', 'store_id' => 1]);
         Product::create(['name' => 'Magic Bracelet', 'store_id' => 1]);
 
-        Order::factory()->count(902)->create(['product_id' => '1']);
-        Order::factory()->count(760)->create(['product_id' => '2']);
-        Order::factory()->count(543)->create(['product_id' => '3']);
-        Order::factory()->count(632)->create(['product_id' => '4']);
+        Order::factory(902)->create(['product_id' => '1']);
+        Order::factory(760)->create(['product_id' => '2']);
+        Order::factory(543)->create(['product_id' => '3']);
+        Order::factory(632)->create(['product_id' => '4']);
     }
 }
