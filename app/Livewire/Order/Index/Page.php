@@ -7,6 +7,7 @@ use App\Models\Store;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\View\View;
+use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,6 +43,12 @@ class Page extends Component
         $this->authorize('update', $order);
 
         $order->archive();
+    }
+
+    #[Renderless]
+    public function export()
+    {
+        return $this->store->orders()->toCsv();
     }
 
     public function sortBy($column): void

@@ -11,7 +11,7 @@ use Illuminate\Support\Number;
 class Order extends Model
 {
     use HasFactory;
-    
+
     protected $casts = [
         'status' => Status::class,
         'ordered_at' => 'datetime',
@@ -32,7 +32,7 @@ class Order extends Model
         return 'https://i.pravatar.cc/300?img='.((string) crc32($this->email))[0];
     }
 
-    public function dateForHumans()
+    public function dateForHumans(): string
     {
         return $this->ordered_at->format(
             $this->ordered_at->year === now()->year
