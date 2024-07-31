@@ -28,6 +28,8 @@ class Page extends Component
 
     public $selectedOrderIds = [];
 
+    public $orderIdsOnPage = [];
+
     public function updatedSearch(): void
     {
         $this->resetPage();
@@ -112,8 +114,12 @@ class Page extends Component
         $this->applySearch($query);
         $this->applySorting($query);
 
+        $orders = $query->paginate(10);
+
+        $this->orderIdsOnPage = $orders->map(fn($order) => (string) $order->id)->toArray();
+
         return view('livewire.order.index.page', [
-            'orders' => $query->paginate(10),
+            'orders' => $orders,
         ]);
     }
 }
