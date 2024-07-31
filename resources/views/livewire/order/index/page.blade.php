@@ -15,11 +15,15 @@
             <thead>
             <tr>
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Order #</div>
+                    <x-order.index.sortable column="number" :$sortAsc :$sortCol>
+                        Order #
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Status</div>
+                    <x-order.index.sortable column="status" :$sortAsc :$sortCol>
+                        Status
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
@@ -27,11 +31,18 @@
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Date</div>
+                    <x-order.index.sortable column="date" :$sortAsc :$sortCol>
+                        Date
+                    </x-order.index.sortable>
                 </th>
 
                 <th class="p-3 text-left text-sm font-semibold text-gray-900">
-                    <div>Amount</div>
+                    <x-order.index.sortable column="amount" :$sortAsc :$sortCol class="flex-row-reverse">
+                        Amount
+                    </x-order.index.sortable>
+                </th>
+                <th>
+                    <!-- Dropdown Menu -->
                 </th>
             </tr>
             </thead>
@@ -70,6 +81,30 @@
 
                     <td class="w-auto whitespace-nowrap p-3 text-sm text-gray-800 font-semibold text-right">
                         {{ $order->amountForHumans() }}
+                    </td>
+
+                    <td class="whitespace-nowrap p-3 text-sm">
+
+                        <x-menu>
+                            <x-menu.button class="rounded hover:bg-gray-200">
+                                <x-icon.ellipsis-horizontal/>
+                            </x-menu.button>
+
+                            <x-menu.items>
+                                <x-menu.close>
+                                    <x-menu.item wire:confirm="Are you sure you want to refund this order?"
+                                                 wire:click="refund({{ $order->id }})">
+                                        Refund
+                                    </x-menu.item>
+                                </x-menu.close>
+                                <x-menu.close>
+                                    <x-menu.item wire:confirm="Are you sure you want to archive this order?"
+                                                 wire:click="archive({{ $order->id }})">
+                                        Archive
+                                    </x-menu.item>
+                                </x-menu.close>
+                            </x-menu.items>
+                        </x-menu>
                     </td>
                 </tr>
             @endforeach
