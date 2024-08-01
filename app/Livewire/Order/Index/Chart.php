@@ -12,12 +12,8 @@ use Livewire\Component;
 class Chart extends Component
 {
     public Store $store;
-    public $dataset = [];
 
-    public function mount(): void
-    {
-        $this->fillDataset();
-    }
+    public $dataset = [];
 
     public function fillDataset(): void
     {
@@ -35,6 +31,13 @@ class Chart extends Component
 
     public function render(): Application|Factory|\Illuminate\Contracts\View\View|View
     {
+        $this->fillDataset();
+
         return view('livewire.order.index.chart');
+    }
+
+    public function placeholder(): Application|Factory|\Illuminate\Contracts\View\View|View
+    {
+        return view('livewire.order.index.chart-placeholder');
     }
 }
