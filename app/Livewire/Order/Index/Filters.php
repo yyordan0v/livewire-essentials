@@ -3,19 +3,28 @@
 namespace App\Livewire\Order\Index;
 
 use App\Models\Store;
+use Livewire\Attributes\Url;
 use Livewire\Form;
 
 class Filters extends Form
 {
     public Store $store;
 
+    #[Url(as: 'products')]
     public $selectedProductIds = [];
 
     public function init($store)
     {
         $this->store = $store;
 
-        $this->selectedProductIds = $this->products()->pluck('id')->toArray();
+        $this->fillSelectedProductIds();
+    }
+
+    public function fillSelectedProductIds(): void
+    {
+        if (empty($this->selectedProductIds)) {
+            $this->selectedProductIds = $this->products()->pluck('id')->toArray();
+        }
     }
 
     public function products()
