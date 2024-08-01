@@ -4,9 +4,7 @@ namespace App\Livewire\Order\Index;
 
 use App\Models\Order;
 use App\Models\Store;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Application;
-use Illuminate\View\View;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +14,9 @@ class Table extends Component
     use WithPagination, Sortable, Searchable;
 
     public Store $store;
+
+    #[Reactive]
+    public Filters $filters;
 
     public $selectedOrderIds = [];
 
@@ -60,12 +61,13 @@ class Table extends Component
     }
 
 
-    public function render(): \Illuminate\Contracts\View\View|Factory|Application|View
+    public function render()
     {
         $query = $this->store->orders();
 
-        $this->applySearch($query);
-        $this->applySorting($query);
+        $query = $this->applySearch($query);
+        $query = $this->applySorting($query);
+        $query = $this->filters->apply($query);
 
         $orders = $query->paginate(10);
 
@@ -76,7 +78,7 @@ class Table extends Component
         ]);
     }
 
-    public function placeholder(): Application|Factory|\Illuminate\Contracts\View\View|View
+    public function placeholder()
     {
         return view('livewire.order.index.table-placeholder');
     }
