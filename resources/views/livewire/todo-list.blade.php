@@ -2,17 +2,19 @@
     {{-- Add todo --}}
     <form wire:submit="add">
         <div class="flex gap-2">
-            <input type="text" class="grow rounded-full shadow px-5 py-3"
-                   placeholder="Today I'm gonna...">
+            <input
+                wire:model="draft"
+                type="text" class="grow rounded-full shadow px-5 py-3"
+                placeholder="Today I'm gonna...">
         </div>
     </form>
 
     {{-- Todo list --}}
     <div class="grid gap-3 min-w-[24rem]">
-        @foreach (range(1, 5) as $i)
+        @foreach ($this->todos as $todo)
             <div class="group p-1.5 flex justify-between items-center bg-slate-100 rounded-full shadow shadow-slate-300"
-                 wire:key="{{ $i }}">
-                <div class="px-3 py-1 text-sm text-slate-600">First todo...</div>
+                 wire:key="{{ $todo->id }}">
+                <div class="px-3 py-1 text-sm text-slate-600">{{ $todo->name }}</div>
 
                 <button wire:click="remove"
                         class="opacity-0 group-hover:opacity-100 text-slate-500 hover:bg-emerald-100/75 hover:text-emerald-700 rounded-full p-2">

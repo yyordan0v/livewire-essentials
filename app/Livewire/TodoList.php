@@ -2,12 +2,23 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class TodoList extends Component
 {
-    public function render()
+    public $draft = '';
+
+    #[Computed]
+    public function todos()
     {
-        return view('livewire.todo-list');
+        return auth()->user()->todos;
+    }
+
+    public function add()
+    {
+        auth()->user()->todos()->create([
+            'name' => $this->pull('draft'),
+        ]);
     }
 }
