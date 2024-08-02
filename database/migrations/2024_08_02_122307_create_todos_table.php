@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('position');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

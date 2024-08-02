@@ -12,13 +12,19 @@ class TodoList extends Component
     #[Computed]
     public function todos()
     {
-        return auth()->user()->todos;
+        return $this->query()->orderBy('position')->get();
     }
 
     public function add()
     {
-        auth()->user()->todos()->create([
+        $this->query()->create([
             'name' => $this->pull('draft'),
+            'position' => $this->query()->max('position') + 1,
         ]);
+    }
+
+    protected function query()
+    {
+        return auth()->user()->todos();
     }
 }

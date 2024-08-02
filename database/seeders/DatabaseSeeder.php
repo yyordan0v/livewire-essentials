@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->todos()->createMany([
-            ['name' => 'First todo...'],
-            ['name' => 'Second todo...'],
-            ['name' => 'Third todo...'],
+            ['name' => 'First todo...', 'position' => 0],
+            ['name' => 'Second todo...', 'position' => 1],
+            ['name' => 'Third todo...', 'position' => 2],
         ]);
 
         Store::create([
