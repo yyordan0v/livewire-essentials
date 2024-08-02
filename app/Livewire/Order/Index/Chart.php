@@ -18,9 +18,15 @@ class Chart extends Component
 
     public function fillDataset()
     {
+        $increment = match ($this->filters->range) {
+            Range::Today => "strftime('%H', ordered_at) as increment",
+            Range::Year, Range::All_Time => "strftime('%Y', ordered_at) || '-' || strftime('%m', ordered_at) as increment",
+            default => "DATE(ordered_at) as increment",
+        };
+
         $results = $this->store->orders()
             ->select(
-                DB::raw("strftime('%Y', ordered_at) || '-' || strftime('%m', ordered_at) as increment"),
+                DB::raw($increment),
                 DB::raw('SUM(amount) as total'),
             )
             ->tap(function ($query) {
