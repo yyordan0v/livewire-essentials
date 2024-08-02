@@ -24,9 +24,9 @@ class TodoList extends Component
         ]);
     }
 
-    public function sort($item, $position)
+    public function sort($key, $position)
     {
-        $todo = $this->query()->findOrFail($item);
+        $todo = $this->query()->findOrFail($key);
 
         $this->move($todo, $position);
     }
