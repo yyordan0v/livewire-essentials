@@ -23,6 +23,8 @@ class Filters extends Form
     #[Url]
     public $end;
 
+    public FilterStatus $status = FilterStatus::All;
+
     public function init($store)
     {
         $this->store = $store;
@@ -51,10 +53,31 @@ class Filters extends Form
         return $this->store->products;
     }
 
+    public function statuses()
+    {
+        return collect(FilterStatus::cases())->map(function ($status) {
+            $count = $this->applyProducts(
+                $this->applyRange(
+                    $this->applyStatus(
+                        $this->store->orders(),
+                        $status,
+                    )
+                )
+            )->count();
+
+            return [
+                'value' => $status->value,
+                'label' => $status->label(),
+                'count' => $count,
+            ];
+        });
+    }
+
     public function apply($query)
     {
         $this->applyProducts($query);
         $this->applyRange($query);
+        $this->applyStatus($query);
 
         return $query;
     }
@@ -79,6 +102,16 @@ class Filters extends Form
         }
 
         return $query->whereBetween('ordered_at', $this->range->dates());
+    }
 
+    public function applyStatus($query, $status = null)
+    {
+        $status = $status ?? $this->status;
+
+        if ($status === FilterStatus::All) {
+            return $query;
+        }
+
+        return $query->where('status', $status);
     }
 }
