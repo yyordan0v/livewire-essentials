@@ -15,7 +15,7 @@ class Page extends Component
     {
         $this->filters->init($this->store);
     }
-
+    
     public function render()
     {
         return view('livewire.order.index.page');
