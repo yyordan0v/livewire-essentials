@@ -10,10 +10,13 @@
     </form>
 
     {{-- Todo list --}}
-    <div class="grid gap-3 min-w-[24rem]">
+    <div class="grid gap-3 min-w-[24rem]" x-sort="$wire.sort($item, $position)">
         @foreach ($this->todos as $todo)
-            <div class="group p-1.5 flex justify-between items-center bg-slate-100 rounded-full shadow shadow-slate-300"
-                 wire:key="{{ $todo->id }}">
+            <div
+                x-sort:item="{{ $todo->id }}"
+                wire:key="{{ $todo->id }}"
+                class="group p-1.5 flex justify-between items-center bg-slate-100 rounded-full shadow shadow-slate-300"
+            >
                 <div class="px-3 py-1 text-sm text-slate-600">{{ $todo->name }}</div>
 
                 <button wire:click="remove"
