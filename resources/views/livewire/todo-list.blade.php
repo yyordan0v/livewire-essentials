@@ -17,7 +17,21 @@
                 wire:key="{{ $todo->id }}"
                 class="group p-1.5 flex justify-between items-center bg-slate-100 rounded-full shadow shadow-slate-300"
             >
-                <div class="px-3 py-1 text-sm text-slate-600">{{ $todo->name }}</div>
+                <div class="flex items-center gap-2 px-3 py-1">
+                    <div x-sort:handle
+                         class="transition translate-x-[-1.5rem] [body:not(.sorting)_&]:group-hover:translate-x-0 opacity-0 [body:not(.sorting)_&]:group-hover:opacity-100 text-slate-300 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                            <path fill-rule="evenodd"
+                                  d="M2 3.75A.75.75 0 0 1 2.75 3h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 3.75ZM2 8a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 8Zm0 4.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+
+                    <div
+                        class="transition translate-x-[-1.5rem] [body:not(.sorting)_&]:group-hover:translate-x-0 text-sm text-slate-600">
+                        {{ $todo->name }}
+                    </div>
+                </div>
 
                 <button wire:click="remove({{ $todo->id }})"
                         class="opacity-0 group-hover:opacity-100 text-slate-500 hover:bg-emerald-100/75 hover:text-emerald-700 rounded-full p-2">
