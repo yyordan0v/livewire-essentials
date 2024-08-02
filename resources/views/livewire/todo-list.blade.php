@@ -19,7 +19,7 @@
             >
                 <div class="px-3 py-1 text-sm text-slate-600">{{ $todo->name }}</div>
 
-                <button wire:click="remove"
+                <button wire:click="remove({{ $todo->id }})"
                         class="opacity-0 group-hover:opacity-100 text-slate-500 hover:bg-emerald-100/75 hover:text-emerald-700 rounded-full p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
                         <path fill-rule="evenodd"

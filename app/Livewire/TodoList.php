@@ -28,16 +28,33 @@ class TodoList extends Component
     {
         $todo = $this->query()->findOrFail($item);
 
+        $this->move($todo, $position);
+    }
+
+    public function remove($id)
+    {
+        $todo = $this->query()->findOrFail($id);
+
+        $this->move($todo, 999999);
+
+        $todo->delete();
+    }
+
+    protected function move($todo, $position)
+    {
         DB::transaction(function () use ($todo, $position) {
             $current = $todo->position;
             $after = $position;
 
-            if ($current == $after) {
+            // If there was no position change, don't shift...
+            if ($current === $after) {
                 return;
             }
 
+            // Move the target todo out of the position stack...
             $todo->update(['position' => -1]);
 
+            // Grab the shifted block and shift it up or down...
             $block = $this->query()->whereBetween('position', [
                 min($current, $after),
                 max($current, $after),
@@ -49,6 +66,7 @@ class TodoList extends Component
                 ? $block->decrement('position')
                 : $block->increment('position');
 
+            // Place target back in position stack...
             $todo->update(['position' => $after]);
         });
     }
