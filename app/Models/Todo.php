@@ -18,8 +18,8 @@ class Todo extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function scopeSortable($query, $todo)
+    protected function scopeSortable($query, $model)
     {
-        return $todo->user->todos();
+        return $model->user->todos();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Lottery;
 
 trait Sortable
 {
@@ -27,6 +28,10 @@ trait Sortable
 
     public function move($position)
     {
+        Lottery::odds(2, outOf: 100)
+            ->winner(fn() => $this->arrange())
+            ->choose();
+
         DB::transaction(function () use ($position) {
             $current = $this->position;
             $after = $position;
@@ -53,6 +58,19 @@ trait Sortable
 
             // Place target back in position stack...
             $this->update(['position' => $after]);
+        });
+    }
+
+    public function arrange()
+    {
+        DB::transaction(function () {
+            $position = 0;
+
+            foreach (static::sortable($this) as $model) {
+                $model->position = $position++;
+
+                $model->save();
+            }
         });
     }
 }
