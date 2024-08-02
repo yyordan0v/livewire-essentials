@@ -17,10 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Jelly McSquid',
-            'email' => 'jelly@laravel.livewire.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        $user = User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        $user->todos()->createMany([
+            ['name' => 'First todo...'],
+            ['name' => 'Second todo...'],
+            ['name' => 'Third todo...'],
         ]);
 
         Store::create([
